@@ -62,6 +62,24 @@ public partial class @PlayerControle: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Gun shooting"",
+                    ""type"": ""Button"",
+                    ""id"": ""701902e6-81e6-4894-b47b-b603bae0d70a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Tap(duration=1E-06)"",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Gun reloading"",
+                    ""type"": ""Button"",
+                    ""id"": ""63c77983-1caa-4c2d-9487-6f212704bb3f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -152,6 +170,28 @@ public partial class @PlayerControle: IInputActionCollection2, IDisposable
                     ""action"": ""Sprinting"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7e415ab1-ff9a-41e4-8c8d-282ee3550318"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Gun shooting"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8eaddc56-a558-49e9-b3f2-fecf3fb0b279"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Gun reloading"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -164,6 +204,8 @@ public partial class @PlayerControle: IInputActionCollection2, IDisposable
         m_Land_Jump = m_Land.FindAction("Jump", throwIfNotFound: true);
         m_Land_mouselook = m_Land.FindAction("mouselook", throwIfNotFound: true);
         m_Land_Sprinting = m_Land.FindAction("Sprinting", throwIfNotFound: true);
+        m_Land_Gunshooting = m_Land.FindAction("Gun shooting", throwIfNotFound: true);
+        m_Land_Gunreloading = m_Land.FindAction("Gun reloading", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -229,6 +271,8 @@ public partial class @PlayerControle: IInputActionCollection2, IDisposable
     private readonly InputAction m_Land_Jump;
     private readonly InputAction m_Land_mouselook;
     private readonly InputAction m_Land_Sprinting;
+    private readonly InputAction m_Land_Gunshooting;
+    private readonly InputAction m_Land_Gunreloading;
     public struct LandActions
     {
         private @PlayerControle m_Wrapper;
@@ -237,6 +281,8 @@ public partial class @PlayerControle: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Land_Jump;
         public InputAction @mouselook => m_Wrapper.m_Land_mouselook;
         public InputAction @Sprinting => m_Wrapper.m_Land_Sprinting;
+        public InputAction @Gunshooting => m_Wrapper.m_Land_Gunshooting;
+        public InputAction @Gunreloading => m_Wrapper.m_Land_Gunreloading;
         public InputActionMap Get() { return m_Wrapper.m_Land; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -258,6 +304,12 @@ public partial class @PlayerControle: IInputActionCollection2, IDisposable
             @Sprinting.started += instance.OnSprinting;
             @Sprinting.performed += instance.OnSprinting;
             @Sprinting.canceled += instance.OnSprinting;
+            @Gunshooting.started += instance.OnGunshooting;
+            @Gunshooting.performed += instance.OnGunshooting;
+            @Gunshooting.canceled += instance.OnGunshooting;
+            @Gunreloading.started += instance.OnGunreloading;
+            @Gunreloading.performed += instance.OnGunreloading;
+            @Gunreloading.canceled += instance.OnGunreloading;
         }
 
         private void UnregisterCallbacks(ILandActions instance)
@@ -274,6 +326,12 @@ public partial class @PlayerControle: IInputActionCollection2, IDisposable
             @Sprinting.started -= instance.OnSprinting;
             @Sprinting.performed -= instance.OnSprinting;
             @Sprinting.canceled -= instance.OnSprinting;
+            @Gunshooting.started -= instance.OnGunshooting;
+            @Gunshooting.performed -= instance.OnGunshooting;
+            @Gunshooting.canceled -= instance.OnGunshooting;
+            @Gunreloading.started -= instance.OnGunreloading;
+            @Gunreloading.performed -= instance.OnGunreloading;
+            @Gunreloading.canceled -= instance.OnGunreloading;
         }
 
         public void RemoveCallbacks(ILandActions instance)
@@ -297,5 +355,7 @@ public partial class @PlayerControle: IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnMouselook(InputAction.CallbackContext context);
         void OnSprinting(InputAction.CallbackContext context);
+        void OnGunshooting(InputAction.CallbackContext context);
+        void OnGunreloading(InputAction.CallbackContext context);
     }
 }

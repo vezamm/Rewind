@@ -40,6 +40,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Gun shooting",
+                    "type": "Button",
+                    "id": "701902e6-81e6-4894-b47b-b603bae0d70a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Tap(duration=1E-06)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Gun reloading",
+                    "type": "Button",
+                    "id": "63c77983-1caa-4c2d-9487-6f212704bb3f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -128,6 +146,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Sprinting",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7e415ab1-ff9a-41e4-8c8d-282ee3550318",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Gun shooting",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8eaddc56-a558-49e9-b3f2-fecf3fb0b279",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Gun reloading",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
