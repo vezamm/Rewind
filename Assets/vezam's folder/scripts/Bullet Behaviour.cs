@@ -29,7 +29,7 @@ public class BulletBehaviour : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("wall"))
+        if (other.CompareTag("wall")||other.CompareTag("Ground"))
         {
             Destroy(gameObject);
             Debug.Log("wallhit");

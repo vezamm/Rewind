@@ -69,7 +69,7 @@ public partial class @PlayerControle: IInputActionCollection2, IDisposable
                     ""id"": ""701902e6-81e6-4894-b47b-b603bae0d70a"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Tap(duration=1E-06)"",
+                    ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {

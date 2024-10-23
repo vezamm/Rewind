@@ -11,6 +11,7 @@ public class Shooting : MonoBehaviour
     [SerializeField] private TMP_Text nubreofbulletdisplay;
     [SerializeField] private bool isReloading;
 
+    private Transform cameraMaintransform;
     private PlayerControle _playerControl;
 
 
@@ -29,7 +30,7 @@ public class Shooting : MonoBehaviour
     // Update is called once per frame
     void Start()
     {
-        
+        cameraMaintransform = Camera.main.transform;
     }
     void Update()
     {
@@ -43,9 +44,9 @@ public class Shooting : MonoBehaviour
     }
     public void GunBehaviour()
     {
-        if (_playerControl.Land.Gunshooting.IsPressed() && nbrofbullets > 0 && !isReloading)
+        if (_playerControl.Land.Gunshooting.WasPressedThisFrame() && nbrofbullets > 0 && !isReloading)
         {
-            Instantiate(Bullet, BulletSpawn.position, BulletSpawn.rotation);
+            Instantiate(Bullet, BulletSpawn.position, cameraMaintransform.rotation);
             nbrofbullets--;
         } else if (_playerControl.Land.Gunshooting.IsPressed() && nbrofbullets == 0)
         {
