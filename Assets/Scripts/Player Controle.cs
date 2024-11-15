@@ -29,7 +29,7 @@ public partial class @PlayerControle: IInputActionCollection2, IDisposable
             ""actions"": [
                 {
                     ""name"": ""Move"",
-                    ""type"": ""Value"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""5dd2a0cc-b2e0-4c93-9a2c-dc319d02077d"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
@@ -46,27 +46,18 @@ public partial class @PlayerControle: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Look"",
-                    ""type"": ""Value"",
+                    ""name"": ""mouselook"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""126a0666-838a-4aa7-a082-8747adcca8f7"",
                     ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Sprinting"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""8c602cb2-094f-45b6-b1ea-ee52a7bcd9de"",
-                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Aiming"",
+                    ""name"": ""Sprinting"",
                     ""type"": ""Button"",
-                    ""id"": ""c0bd56d5-0dd1-4ea5-9321-ce38c4cb4b56"",
+                    ""id"": ""8c602cb2-094f-45b6-b1ea-ee52a7bcd9de"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -78,7 +69,7 @@ public partial class @PlayerControle: IInputActionCollection2, IDisposable
                     ""id"": ""701902e6-81e6-4894-b47b-b603bae0d70a"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": ""Tap(duration=1E-06)"",
+                    ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
@@ -165,7 +156,7 @@ public partial class @PlayerControle: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Look"",
+                    ""action"": ""mouselook"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -201,17 +192,6 @@ public partial class @PlayerControle: IInputActionCollection2, IDisposable
                     ""action"": ""Gun reloading"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""1016fbce-f223-4fe6-b44c-de34128c1e11"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Aiming"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -222,9 +202,8 @@ public partial class @PlayerControle: IInputActionCollection2, IDisposable
         m_Land = asset.FindActionMap("Land", throwIfNotFound: true);
         m_Land_Move = m_Land.FindAction("Move", throwIfNotFound: true);
         m_Land_Jump = m_Land.FindAction("Jump", throwIfNotFound: true);
-        m_Land_Look = m_Land.FindAction("Look", throwIfNotFound: true);
+        m_Land_mouselook = m_Land.FindAction("mouselook", throwIfNotFound: true);
         m_Land_Sprinting = m_Land.FindAction("Sprinting", throwIfNotFound: true);
-        m_Land_Aiming = m_Land.FindAction("Aiming", throwIfNotFound: true);
         m_Land_Gunshooting = m_Land.FindAction("Gun shooting", throwIfNotFound: true);
         m_Land_Gunreloading = m_Land.FindAction("Gun reloading", throwIfNotFound: true);
     }
@@ -290,9 +269,8 @@ public partial class @PlayerControle: IInputActionCollection2, IDisposable
     private List<ILandActions> m_LandActionsCallbackInterfaces = new List<ILandActions>();
     private readonly InputAction m_Land_Move;
     private readonly InputAction m_Land_Jump;
-    private readonly InputAction m_Land_Look;
+    private readonly InputAction m_Land_mouselook;
     private readonly InputAction m_Land_Sprinting;
-    private readonly InputAction m_Land_Aiming;
     private readonly InputAction m_Land_Gunshooting;
     private readonly InputAction m_Land_Gunreloading;
     public struct LandActions
@@ -301,9 +279,8 @@ public partial class @PlayerControle: IInputActionCollection2, IDisposable
         public LandActions(@PlayerControle wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Land_Move;
         public InputAction @Jump => m_Wrapper.m_Land_Jump;
-        public InputAction @Look => m_Wrapper.m_Land_Look;
+        public InputAction @mouselook => m_Wrapper.m_Land_mouselook;
         public InputAction @Sprinting => m_Wrapper.m_Land_Sprinting;
-        public InputAction @Aiming => m_Wrapper.m_Land_Aiming;
         public InputAction @Gunshooting => m_Wrapper.m_Land_Gunshooting;
         public InputAction @Gunreloading => m_Wrapper.m_Land_Gunreloading;
         public InputActionMap Get() { return m_Wrapper.m_Land; }
@@ -321,15 +298,12 @@ public partial class @PlayerControle: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
-            @Look.started += instance.OnLook;
-            @Look.performed += instance.OnLook;
-            @Look.canceled += instance.OnLook;
+            @mouselook.started += instance.OnMouselook;
+            @mouselook.performed += instance.OnMouselook;
+            @mouselook.canceled += instance.OnMouselook;
             @Sprinting.started += instance.OnSprinting;
             @Sprinting.performed += instance.OnSprinting;
             @Sprinting.canceled += instance.OnSprinting;
-            @Aiming.started += instance.OnAiming;
-            @Aiming.performed += instance.OnAiming;
-            @Aiming.canceled += instance.OnAiming;
             @Gunshooting.started += instance.OnGunshooting;
             @Gunshooting.performed += instance.OnGunshooting;
             @Gunshooting.canceled += instance.OnGunshooting;
@@ -346,15 +320,12 @@ public partial class @PlayerControle: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
-            @Look.started -= instance.OnLook;
-            @Look.performed -= instance.OnLook;
-            @Look.canceled -= instance.OnLook;
+            @mouselook.started -= instance.OnMouselook;
+            @mouselook.performed -= instance.OnMouselook;
+            @mouselook.canceled -= instance.OnMouselook;
             @Sprinting.started -= instance.OnSprinting;
             @Sprinting.performed -= instance.OnSprinting;
             @Sprinting.canceled -= instance.OnSprinting;
-            @Aiming.started -= instance.OnAiming;
-            @Aiming.performed -= instance.OnAiming;
-            @Aiming.canceled -= instance.OnAiming;
             @Gunshooting.started -= instance.OnGunshooting;
             @Gunshooting.performed -= instance.OnGunshooting;
             @Gunshooting.canceled -= instance.OnGunshooting;
@@ -382,9 +353,8 @@ public partial class @PlayerControle: IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
-        void OnLook(InputAction.CallbackContext context);
+        void OnMouselook(InputAction.CallbackContext context);
         void OnSprinting(InputAction.CallbackContext context);
-        void OnAiming(InputAction.CallbackContext context);
         void OnGunshooting(InputAction.CallbackContext context);
         void OnGunreloading(InputAction.CallbackContext context);
     }
