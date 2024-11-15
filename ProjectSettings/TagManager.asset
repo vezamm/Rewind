@@ -6,6 +6,7 @@ TagManager:
   tags:
   - 'Ground '
   - wall
+  - CinemachineTarget
   layers:
   - Default
   - TransparentFX
@@ -13,7 +14,7 @@ TagManager:
   - pistol
   - Water
   - UI
-  - 
+  - groundLayer
   - 
   - post prossesing
   - 'important stuf '
