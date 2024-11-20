@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using Unity.VisualScripting.AssemblyQualifiedNameParser;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,11 +16,17 @@ public class PlayerController : MonoBehaviour
     private float gravityvalue = -9.81f;
     [SerializeField]
     private float rotationspeed = 4f;
+    [SerializeField] 
+    private LayerMask groundMask;
+    [SerializeField] 
+    private Transform foot;
 
     private CharacterController characterController;
     private Vector3 playerVelocity;
     private PlayerControle _playercontrole;
     private Transform cameraMaintransform;
+
+    private bool isGrounded;
 
     private void Awake()
     {
@@ -48,12 +52,12 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        bool isGrounded = characterController.isGrounded; // Use CharacterController's built-in method
-        Debug.Log($"IsGrounded: {isGrounded}");
+        // Check if the player is grounded using the custom method
+        isGrounded = GroundedCheck();
 
         if (isGrounded && playerVelocity.y < 0)
         {
-            playerVelocity.y = 0; // Reset vertical velocity if grounded
+            playerVelocity.y = -2f; // Reset vertical velocity if grounded
         }
 
         Vector2 movement = _playercontrole.Land.Move.ReadValue<Vector2>();
@@ -64,7 +68,7 @@ public class PlayerController : MonoBehaviour
 
         if (_playercontrole.Land.Jump.triggered && isGrounded) // Jump only if grounded
         {
-            playerVelocity.y = Mathf.Sqrt(jumpheight * -2.0f * gravityvalue); // Adjusted for simplicity
+            playerVelocity.y = Mathf.Sqrt(jumpheight * -2.0f * gravityvalue);
         }
 
         playerVelocity.y += gravityvalue * Time.deltaTime; // Apply gravity to the player every frame
@@ -85,5 +89,14 @@ public class PlayerController : MonoBehaviour
             Quaternion rotation = Quaternion.Euler(0f, targetAngle, 0f);
             transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * rotationspeed);
         }
+    }
+
+    private bool GroundedCheck()
+    {
+        RaycastHit hit;
+        // Cast a ray downward from the foot position to check for ground
+        bool grounded = Physics.Raycast(foot.position, Vector3.down, out hit, 0.2f, groundMask);
+        Debug.Log($"Grounded: {grounded}");
+        return grounded;
     }
 }
