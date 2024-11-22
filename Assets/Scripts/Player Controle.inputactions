@@ -42,7 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Gun shooting",
+                    "name": "Action 1",
                     "type": "Button",
                     "id": "701902e6-81e6-4894-b47b-b603bae0d70a",
                     "expectedControlType": "Button",
@@ -156,7 +156,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Gun shooting",
+                    "action": "Action 1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

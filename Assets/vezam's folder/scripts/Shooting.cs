@@ -44,11 +44,11 @@ public class Shooting : MonoBehaviour
     }
     public void GunBehaviour()
     {
-        if (_playerControl.Land.Gunshooting.WasPressedThisFrame() && nbrofbullets > 0 && !isReloading)
+        if (_playerControl.Land.Action1.WasPressedThisFrame() && nbrofbullets > 0 && !isReloading)
         {
             Instantiate(Bullet, BulletSpawn.position, cameraMaintransform.rotation);
             nbrofbullets--;
-        } else if (_playerControl.Land.Gunshooting.IsPressed() && nbrofbullets == 0)
+        } else if (_playerControl.Land.Action1.IsPressed() && nbrofbullets == 0)
         {
             isReloading=true;
             Invoke("ReloadBullets", 2f);
