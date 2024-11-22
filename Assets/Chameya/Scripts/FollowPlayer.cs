@@ -3,8 +3,8 @@ using UnityEngine.AI;
 
 public class FollowPlayer : MonoBehaviour
 {
-    [serializefield] private Transform player;
-    [serializefield] private float followDistance = 2f;
+    [SerializeField] private Transform player;  // Corrected attribute name
+    [SerializeField] private float followDistance = 2f;  // Corrected attribute name
 
     private NavMeshAgent agent;
 
