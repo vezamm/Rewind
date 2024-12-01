@@ -16,11 +16,11 @@ public class BulletBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     void FixedUpdate()
     {
-        rb.velocity=transform.forward*Bulletspeed*10;
+        rb.velocity = transform.forward * Bulletspeed * 10;
     }
     public void DestroyBullets()
     {
@@ -29,7 +29,7 @@ public class BulletBehaviour : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("wall")||other.CompareTag("Ground"))
+        if (other.CompareTag("wall") || other.CompareTag("Ground"))
         {
             Destroy(gameObject);
             Debug.Log("wallhit");
