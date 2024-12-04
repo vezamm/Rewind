@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89c1d8e79f6ffbd4e9c3e4dc3388b780, type: 3}
   m_Name: Boomerang 1
   m_EditorClassIdentifier: 
-  Id: 0
+  Id: 1
+  Name: Boomerang
   uiDisplay: {fileID: -1271491716, guid: 1c0b8a37964628c4f841cce7b6055a77, type: 3}
+  prefab: {fileID: 5274173935966397743, guid: 45991d93329226345b4e1d0fbfc00b33, type: 3}
   type: 3
-  description: 
+  description: is a deadly weapon
   buffs:
-  - attribute: 0
+  - attribute: 3
     value: 0
     min: 0
     max: 0

@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+
 //using UnityEngine.UIElements;
 
 public class InventoryDisplay : MonoBehaviour
@@ -13,6 +14,10 @@ public class InventoryDisplay : MonoBehaviour
 
     public GameObject inventoryPrefab;
     public OBjects inventory;
+    public Transform objectposition;
+    public Image bigimage;
+    public  TextMeshProUGUI objectname;
+    public TextMeshProUGUI objectdescription;
     public int X_START;
     public int Y_START;
     public int X_SPACE_BETWEEN_ITEM;
@@ -113,6 +118,29 @@ public class InventoryDisplay : MonoBehaviour
         mouseItem.hoverObj = obj;
         if (itemsDisplayed.ContainsKey(obj))
             mouseItem.hoverItem = itemsDisplayed[obj];
+        var slot = itemsDisplayed[obj];
+        if (slot.ID >= 0)
+        {
+            var item = inventory.database.GetItem[slot.ID];
+            if (item != null)
+            {
+                objectname.text = item.name;
+                objectdescription.text = item.description;
+                bigimage.sprite = item.uiDisplay;
+            }
+            else Debug.LogWarning("item with id {slot.id}not found ");
+        }
+        //if (inventory.database.GetItem[itemsDisplayed[obj].ID])
+        //{
+        //    objectname.text = inventory.database.GetItem[itemsDisplayed[obj].ID].name;
+        //    objectdescription.text = inventory.database.GetItem[itemsDisplayed[obj].ID].description;
+        //    bigimage.sprite = inventory.database.GetItem[itemsDisplayed[obj].ID].uiDisplay;
+        //}
+        //else
+        //{
+        //    Debug.LogWarning("item id is invalid(id=-1");
+        //}
+
     }
     public void OnExit(GameObject obj)
     {
@@ -142,6 +170,8 @@ public class InventoryDisplay : MonoBehaviour
         }
         else
         {
+            Debug.Log(itemsDisplayed[obj].item.Id);
+            inventory.SpawnItem(itemsDisplayed[obj].item.Id, objectposition.position, Quaternion.identity, mouseItem.item.amount);
             inventory.RemoveItem(itemsDisplayed[obj].item);
         }
         Destroy(mouseItem.obj);

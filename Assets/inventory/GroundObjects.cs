@@ -7,7 +7,7 @@ public class GroundObjects : MonoBehaviour
 {
     // Start is called before the first frame update
     public ItemObject item;
-
+    public int amount=1;
     void Start()
     {
         

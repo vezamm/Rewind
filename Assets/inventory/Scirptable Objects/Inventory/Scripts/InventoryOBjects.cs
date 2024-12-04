@@ -5,6 +5,8 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using UnityEngine;
 using static UnityEditor.Progress;
+using UnityEditorInternal.Profiling.Memory.Experimental;
+using System;
 
 [CreateAssetMenu(fileName = "New Inventory", menuName = "Inventory System/Inventory")]
 public class OBjects : ScriptableObject
@@ -52,6 +54,18 @@ public class OBjects : ScriptableObject
         }
         return false;
     }
+    public GameObject SpawnItem(int itemId, Vector3 position, Quaternion rotation,int amount)
+    {
+        if (database.GetItem.TryGetValue(itemId, out ItemObject item) && item.prefab != null)
+        {        
+            GameObject newobject = Instantiate(item.prefab, position, rotation); // Clone the prefab   
+            GroundObjects groundObjects = newobject.GetComponent<GroundObjects>();
+            groundObjects.amount = amount;
+            return newobject;
+        }
+        Debug.LogError($"Item with ID {itemId} does not exist or prefab is not set!");
+        return null;
+    }
     public InventorySlot SetEmptySlot(Item _item, int _amount)
     {
         for (int i = 0; i < Container.Items.Length; i++)
@@ -70,7 +84,7 @@ public class OBjects : ScriptableObject
 
     public void MoveItem(InventorySlot item1, InventorySlot item2)
     {
-        InventorySlot temp = new InventorySlot(item2.ID, item2.item, item2.amount);
+        InventorySlot temp = new InventorySlot(item2.ID, item2.item, item2.amount,item2.name);
         item2.UpdateSlot(item1.ID, item1.item, item1.amount);
         item1.UpdateSlot(temp.ID, temp.item, temp.amount);
     }
@@ -138,17 +152,20 @@ public class InventorySlot
     public int ID = -1;
     public Item item;
     public int amount;
+    public string name;
     public InventorySlot()
     {
         ID = -1;
         item = null;
         amount = 0;
+        name = "";
     }
-    public InventorySlot(int _id, Item _item, int _amount)
+    public InventorySlot(int _id, Item _item, int _amount,string _name)
     {
         ID = _id;
         item = _item;
         amount = _amount;
+        name = _name;
     }
     public void UpdateSlot(int _id, Item _item, int _amount)
     {

@@ -8,7 +8,7 @@ using static ItemObject;
 public class ItemDataBase : ScriptableObject, ISerializationCallbackReceiver
 {
     public ItemObject[] Items;
-    public Dictionary<int, ItemObject> GetItem = new Dictionary<int, ItemObject>();
+    public Dictionary<int, ItemObject> GetItem = new Dictionary<int, ItemObject>();    
 
     public void OnAfterDeserialize()
     {
@@ -23,4 +23,5 @@ public class ItemDataBase : ScriptableObject, ISerializationCallbackReceiver
     {
         GetItem = new Dictionary<int, ItemObject>();
     }
+
 }

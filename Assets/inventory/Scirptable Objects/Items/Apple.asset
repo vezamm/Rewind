@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Apple
   m_EditorClassIdentifier: 
   Id: 0
+  Name: Apple
   uiDisplay: {fileID: -1501543489, guid: 1c0b8a37964628c4f841cce7b6055a77, type: 3}
+  prefab: {fileID: 3981689572941589094, guid: faa6bec267c05ca4d817570406e9573b, type: 3}
   type: 0
-  description: apple
+  description: apple is a red fruit
   buffs: []

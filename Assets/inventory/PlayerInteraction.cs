@@ -18,7 +18,7 @@ public class PlayerInteraction : MonoBehaviour
             if (!isfull() || inventory.checkstack(_item))
             {
                 Debug.Log(_item.Id);
-                inventory.AddItem(_item, 1);
+                inventory.AddItem(_item, item2.amount);
                 Destroy(other.gameObject);
             }
             else { Debug.Log("nope"); }

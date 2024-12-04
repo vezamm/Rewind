@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Water
   m_EditorClassIdentifier: 
   Id: 2
+  Name: Water
   uiDisplay: {fileID: -1139584503, guid: 1c0b8a37964628c4f841cce7b6055a77, type: 3}
+  prefab: {fileID: 5265473226805646292, guid: 83e31c7f48184af4fb10214530a187f9, type: 3}
   type: 0
-  description: 
+  description: don't forget to hydrate
   buffs: []
