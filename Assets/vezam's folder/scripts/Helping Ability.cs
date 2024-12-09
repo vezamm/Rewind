@@ -17,7 +17,7 @@ public class HelpingAbility : MonoBehaviour
         {
             grayscaleVolume=gameObject.GetComponent<PostProcessVolume>();
             // Check for ability activation input (for example, pressing "E")
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.R))
             {
                 ToggleEagleVision();
             }

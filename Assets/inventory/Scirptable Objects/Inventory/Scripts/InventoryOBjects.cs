@@ -68,7 +68,7 @@ public class OBjects : ScriptableObject
     }
     public InventorySlot SetEmptySlot(Item _item, int _amount)
     {
-        for (int i = 0; i < Container.Items.Length; i++)
+        for (int i = 0;     i < Container.Items.Length; i++)
         {
             if (Container.Items[i].ID <= -1)
             {
